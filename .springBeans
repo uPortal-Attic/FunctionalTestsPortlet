@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<configExtensions>
+		<configExtension>xml</configExtension>
+	</configExtensions>
+	<configs>
+		<config>src/main/webapp/WEB-INF/context/applicationContext.xml</config>
+		<config>src/main/webapp/WEB-INF/context/portlet/testPortletContext.xml</config>
+	</configs>
+	<configSets>
+		<configSet>
+			<name><![CDATA[TestPortlet]]></name>
+			<allowBeanDefinitionOverriding>true</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>src/main/webapp/WEB-INF/context/applicationContext.xml</config>
+				<config>src/main/webapp/WEB-INF/context/portlet/testPortletContext.xml</config>
+			</configs>
+		</configSet>
+	</configSets>
+</beansProjectDescription>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+>
+    <bean id="testDelegatingSelectorController" class="org.jasig.portlet.test.mvc.TestDelegatingSelectorController">
+        <property name="testControllers">
+            <map>
+                <entry key="Exception Throwing Test">
+                    <bean class="org.jasig.portlet.test.mvc.tests.ExceptionThrowingTest" />
+                </entry>
+                <entry key="State Mode Test">
+                    <bean class="org.jasig.portlet.test.mvc.tests.StateModeTest" />
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="portletModeParameterHandlerMapping" class="org.springframework.web.portlet.handler.PortletModeParameterHandlerMapping">
+        <property name="order" value="10" />
+        <property name="defaultHandler" ref="testDelegatingSelectorController" />
+    </bean>
+</beans>

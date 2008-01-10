@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlet-app
+    xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd"
+    version="1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd
+                        http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd">
+
+    <portlet>
+        <portlet-name>FunctionalTestsPortlet</portlet-name>
+        <display-name xml:lang="en">Functional Tests Portlet</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/testPortletContext.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>EDIT</portlet-mode>
+            <portlet-mode>HELP</portlet-mode>
+            <portlet-mode>ABOUT</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>Functional Tests Portlet</title>
+            <short-title>Functional Tests</short-title>
+            <keywords>Functional Tests</keywords>
+        </portlet-info>
+    </portlet>
+    
+    <custom-portlet-mode>
+        <portlet-mode>ABOUT</portlet-mode>
+    </custom-portlet-mode>
+    
+    <custom-window-state>
+        <window-state>EXCLUSIVE</window-state>
+    </custom-window-state>
+</portlet-app>
