@@ -107,6 +107,10 @@ public class TestDelegatingSelectorController extends AbstractController {
         final String currentTestName = getCurrentTestName(request);
         request.setAttribute(CURRENT_TEST_ATTR, currentTestName);
         this.logger.debug("handleRenderRequestInternal for test '{}' with mode: {} and state: {}", new Object[] { currentTestName, request.getPortletMode(), request.getWindowState() });
+
+        if (currentTestName != null) {
+            response.setTitle(currentTestName);
+        }
         
         final Controller currentTest = this.testControllers.get(currentTestName);
         ModelAndView delegateModelAndView;

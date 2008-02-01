@@ -11,6 +11,9 @@
                 <entry key="State Mode Test">
                     <bean class="org.jasig.portlet.test.mvc.tests.StateModeTest" />
                 </entry>
+                <entry key="Dynamic Title Test">
+                    <bean class="org.jasig.portlet.test.mvc.tests.DynamicTitleTest" />
+                </entry>
             </map>
         </property>
     </bean>
