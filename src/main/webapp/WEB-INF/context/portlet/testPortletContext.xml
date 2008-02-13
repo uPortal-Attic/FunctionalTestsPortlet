@@ -14,6 +14,20 @@
                 <entry key="Dynamic Title Test">
                     <bean class="org.jasig.portlet.test.mvc.tests.DynamicTitleTest" />
                 </entry>
+                <entry key="UserInRole Test">
+                    <bean class="org.jasig.portlet.test.mvc.tests.IsUserInRoleTest">
+                        <property name="roles">
+                            <map>
+                                <entry key="Everyone" value="local.0" />
+                                <entry key="Admin" value="local.14" />
+                                <entry key="Developer" value="local.4" />
+                                <entry key="Guest" value="local.15" />
+                                <entry key="UnDefinedInPortal" value="local.UnDefinedInPortal" />
+                                <entry key="UnDefinedInDescriptor" value="local.UnDefinedInDescriptor" />
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
             </map>
         </property>
     </bean>

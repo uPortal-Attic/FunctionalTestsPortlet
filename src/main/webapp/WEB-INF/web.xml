@@ -56,4 +56,20 @@
         <servlet-name>ViewRendererServlet</servlet-name>
         <url-pattern>/WEB-INF/servlet/view</url-pattern>
     </servlet-mapping>
+    
+    <security-role>
+        <role-name>local.0</role-name>
+    </security-role>
+    <security-role>
+        <role-name>local.4</role-name>
+    </security-role>
+    <security-role>
+        <role-name>local.14</role-name>
+    </security-role>
+    <security-role>
+        <role-name>local.15</role-name>
+    </security-role>
+    <security-role>
+        <role-name>local.UnDefinedInPortal</role-name>
+    </security-role>
 </web-app>
