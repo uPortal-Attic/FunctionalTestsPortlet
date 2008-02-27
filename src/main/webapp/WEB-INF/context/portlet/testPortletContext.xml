@@ -28,6 +28,9 @@
                         </property>
                     </bean>
                 </entry>
+                <entry key="Portlet Preferences Test">
+                    <bean class="org.jasig.portlet.test.mvc.tests.PortletPrefrencesTest" />
+                </entry>
             </map>
         </property>
     </bean>
