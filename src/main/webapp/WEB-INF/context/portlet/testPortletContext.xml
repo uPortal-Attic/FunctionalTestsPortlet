@@ -19,9 +19,9 @@
                         <property name="roles">
                             <map>
                                 <entry key="Everyone" value="local.0" />
-                                <entry key="Admin" value="local.14" />
-                                <entry key="Developer" value="local.4" />
-                                <entry key="Guest" value="local.15" />
+                                <entry key="Portal Administrators" value="local.2" />
+                                <entry key="Developers" value="local.20" />
+                                <entry key="Guests" value="local.27" />
                                 <entry key="UnDefinedInPortal" value="local.UnDefinedInPortal" />
                                 <entry key="UnDefinedInDescriptor" value="local.UnDefinedInDescriptor" />
                             </map>
@@ -30,6 +30,9 @@
                 </entry>
                 <entry key="Portlet Preferences Test">
                     <bean class="org.jasig.portlet.test.mvc.tests.PortletPrefrencesTest" />
+                </entry>
+                <entry key="Locale Test">
+                    <bean class="org.jasig.portlet.test.mvc.tests.LocaleTest" />
                 </entry>
             </map>
         </property>
