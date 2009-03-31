@@ -58,4 +58,7 @@
     <custom-window-state>
         <window-state>EXCLUSIVE</window-state>
     </custom-window-state>
+    <custom-window-state>
+        <window-state>DETACHED</window-state>
+    </custom-window-state>
 </portlet-app>

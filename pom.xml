@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.jasig</groupId>
         <artifactId>jasig-parent</artifactId>
-        <version>6</version>
+        <version>10</version>
     </parent>
     
     <modelVersion>4.0.0</modelVersion>
@@ -14,29 +14,29 @@
     
     <name>Test Portlets</name>
     <description>Portlets used for testing JSR-168 functionality.</description>
+    <url>${jasig-site-base}/portlets/FunctionalTestsPortlet/${project.version}</url>
     
-    <properties>
-        <issues.projectKey />
-        <scm.path>/portlets</scm.path>
-    </properties>
+    <scm>
+        <connection>scm:svn:https://www.ja-sig.org/svn/portlets/FunctionalTestsPortlet/trunk</connection>
+        <developerConnection>scm:svn:https://www.ja-sig.org/svn/portlets/FunctionalTestsPortlet/trunk</developerConnection>
+        <url>http://developer.jasig.org/source/browse/jasigsvn/portlets/FunctionalTestsPortlet/trunk</url>
+    </scm>
     
+    <distributionManagement>
+        <site>
+            <id>developer.jasig</id>
+            <url>${jasig-site-dist-base}/portlets/FunctionalTestsPortlet/${project.version}</url>
+        </site>
+    </distributionManagement>
+        
     <repositories>
         <repository>
-            <id>jasig-repository</id>
-            <name>JA-SIG Maven2 Repository</name>
-            <url>http://developer.ja-sig.org/maven2</url>
-        </repository>
-        <repository>
-            <id>Codehaus Snapshots</id>
-            <url>http://snapshots.repository.codehaus.org/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
+            <id>jasig-m2</id>
+            <name>JASIG Maven2 Repository</name>
+            <url>http://developer.jasig.org/repo/content/repositories/m2</url>
         </repository>
     </repositories>
+
     
     <dependencies>
 
