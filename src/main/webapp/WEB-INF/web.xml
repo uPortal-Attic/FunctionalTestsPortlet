@@ -53,16 +53,28 @@
     </servlet-mapping>
     
     <security-role>
+        <role-name>Everyone</role-name>
+    </security-role>
+    <security-role>
         <role-name>local.0</role-name>
     </security-role>
     <security-role>
-        <role-name>local.4</role-name>
+        <role-name>All Users (PAGS)</role-name>
     </security-role>
     <security-role>
-        <role-name>local.14</role-name>
+        <role-name>pags.all_users</role-name>
     </security-role>
     <security-role>
-        <role-name>local.15</role-name>
+        <role-name>Portal Administrators</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Developers</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Guests</role-name>
+    </security-role>
+    <security-role>
+        <role-name>UnDefinedInPortal</role-name>
     </security-role>
     <security-role>
         <role-name>local.UnDefinedInPortal</role-name>

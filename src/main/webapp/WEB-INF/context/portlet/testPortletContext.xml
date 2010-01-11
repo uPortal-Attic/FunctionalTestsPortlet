@@ -18,12 +18,23 @@
                     <bean class="org.jasig.portlet.test.mvc.tests.IsUserInRoleTest">
                         <property name="roles">
                             <map>
-                                <entry key="Everyone" value="local.0" />
-                                <entry key="Portal Administrators" value="local.2" />
-                                <entry key="Developers" value="local.20" />
-                                <entry key="Guests" value="local.27" />
-                                <entry key="UnDefinedInPortal" value="local.UnDefinedInPortal" />
-                                <entry key="UnDefinedInDescriptor" value="local.UnDefinedInDescriptor" />
+                                <entry key="Everyone" value="" />
+                                <entry key="Everyone (link)" value="local.0" />
+                                
+                                <entry key="All Users (PAGS)" value="" />
+                                <entry key="All Users (PAGS) (link)" value="pags.all_users" />
+                                
+                                <entry key="Portal Administrators" value="" />
+                                <entry key="Portal Administrators (link)" value="local.2" />
+                                
+                                <entry key="Portal Developers" value="" />
+                                <entry key="Guests" value="" />
+                        
+                                <entry key="UnDefinedInPortal" value="" />
+                                <entry key="UnDefinedInPortal (link)" value="local.UnDefinedInPortal" />
+                        
+                                <entry key="UnDefinedInDescriptor" value="" />
+                                <entry key="UnDefinedInDescriptor (link)" value="local.UnDefinedInDescriptor" />
                             </map>
                         </property>
                     </bean>

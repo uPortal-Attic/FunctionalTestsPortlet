@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.portlet.ModelAndView;
@@ -53,8 +54,10 @@ public class IsUserInRoleTest extends AbstractController {
             roleTests.put(role, userInRole);
             
             final String roleLink = roleEntry.getValue();
-            final boolean userInRoleLink = request.isUserInRole(roleLink);
-            roleLinkTests.put(roleLink, userInRoleLink);
+            if (!StringUtils.isEmpty(roleLink)) {
+                final boolean userInRoleLink = request.isUserInRole(roleLink);
+                roleLinkTests.put(roleLink, userInRoleLink);
+            }
         }
         
         final Map<String, Object> model = new HashMap<String, Object>();

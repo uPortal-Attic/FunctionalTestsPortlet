@@ -29,24 +29,43 @@
             <keywords>Functional Tests</keywords>
         </portlet-info>
         
+        
         <security-role-ref>
             <role-name>Everyone</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>Everyone (link)</role-name>
             <role-link>local.0</role-link>
         </security-role-ref>
+        
         <security-role-ref>
-            <role-name>Admin</role-name>
-            <role-link>local.14</role-link>
+            <role-name>All Users (PAGS)</role-name>
         </security-role-ref>
         <security-role-ref>
-            <role-name>Developer</role-name>
-            <role-link>local.4</role-link>
+            <role-name>All Users (PAGS) (link)</role-name>
+            <role-link>pags.all_users</role-link>
+        </security-role-ref>
+        
+        <security-role-ref>
+            <role-name>Portal Administrators</role-name>
         </security-role-ref>
         <security-role-ref>
-            <role-name>Guest</role-name>
-            <role-link>local.15</role-link>
+            <role-name>Portal Administrators (link)</role-name>
+            <role-link>local.2</role-link>
         </security-role-ref>
+        
+        <security-role-ref>
+            <role-name>Developers</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>Guests</role-name>
+        </security-role-ref>
+
         <security-role-ref>
             <role-name>UnDefinedInPortal</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>UnDefinedInPortal (link)</role-name>
             <role-link>local.UnDefinedInPortal</role-link>
         </security-role-ref>
     </portlet>
