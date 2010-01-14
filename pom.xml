@@ -10,16 +10,16 @@
     <groupId>org.jasig.portlet</groupId>
     <artifactId>FunctionalTestsPortlet</artifactId>
     <packaging>war</packaging>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
     
     <name>Test Portlets</name>
     <description>Portlets used for testing JSR-168 functionality.</description>
     <url>${jasig-site-base}/portlets/FunctionalTestsPortlet/${project.version}</url>
     
     <scm>
-        <connection>scm:svn:https://www.ja-sig.org/svn/portlets/FunctionalTestsPortlet/trunk</connection>
-        <developerConnection>scm:svn:https://www.ja-sig.org/svn/portlets/FunctionalTestsPortlet/trunk</developerConnection>
-        <url>http://developer.jasig.org/source/browse/jasigsvn/portlets/FunctionalTestsPortlet/trunk</url>
+        <connection>scm:svn:https://www.ja-sig.org/svn/portlets/FunctionalTestsPortlet/tags/FunctionalTestsPortlet-1.0.2</connection>
+        <developerConnection>scm:svn:https://www.ja-sig.org/svn/portlets/FunctionalTestsPortlet/tags/FunctionalTestsPortlet-1.0.2</developerConnection>
+        <url>http://developer.jasig.org/source/browse/jasigsvn/portlets/FunctionalTestsPortlet/tags/FunctionalTestsPortlet-1.0.2</url>
     </scm>
     
     <distributionManagement>
