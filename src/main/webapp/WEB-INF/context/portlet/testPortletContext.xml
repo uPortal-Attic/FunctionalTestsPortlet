@@ -45,6 +45,9 @@
                 <entry key="Locale Test">
                     <bean class="org.jasig.portlet.test.mvc.tests.LocaleTest" />
                 </entry>
+                <entry key="User Info Test">
+                    <bean class="org.jasig.portlet.test.mvc.tests.GetExpectedUserAttributesTest" />
+                </entry>
             </map>
         </property>
     </bean>
