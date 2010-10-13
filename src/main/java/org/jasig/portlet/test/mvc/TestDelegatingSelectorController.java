@@ -127,7 +127,7 @@ public class TestDelegatingSelectorController extends AbstractController {
         }
         
         //Add list of test names to model for rendering test selector
-        final Map<Object, Object> model = delegateModelAndView.getModel();
+        final Map<String, Object> model = delegateModelAndView.getModel();
         model.put(TEST_CONTROLLER_NAMES_ATTR, this.testControllers.keySet());
 
         return delegateModelAndView;

@@ -5,6 +5,7 @@
  */
 package org.jasig.portlet.test.mvc.tests;
 
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Locale;
@@ -13,7 +14,6 @@ import java.util.Map;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import org.apache.commons.collections15.EnumerationUtils;
 import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.mvc.AbstractController;
 
@@ -33,7 +33,7 @@ public class LocaleTest extends AbstractController {
 
         final Map<String, Object> model = new HashMap<String, Object>();
         model.put("preferedRequestLocale", preferedRequestLocale);
-        model.put("requestLocales", EnumerationUtils.toList(requestLocales));
+        model.put("requestLocales", Collections.list(requestLocales));
         model.put("responseLocale", responseLocale);
         
         return new ModelAndView("localeTest", model);

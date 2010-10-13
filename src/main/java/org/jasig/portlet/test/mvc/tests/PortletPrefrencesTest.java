@@ -19,8 +19,8 @@ import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import org.apache.commons.collections15.Factory;
-import org.apache.commons.collections15.list.LazyList;
+import org.apache.commons.collections.Factory;
+import org.apache.commons.collections.list.LazyList;
 import org.jasig.portlet.test.om.prefs.Preference;
 import org.jasig.portlet.test.om.prefs.Preferences;
 import org.springframework.validation.BindException;
@@ -36,7 +36,7 @@ public class PortletPrefrencesTest extends AbstractFormController {
     private static final PreferenceFactory PREFERENCE_FACTORY = new PreferenceFactory();
     private static final StringFactory STRING_FACTORY = new StringFactory();
     
-    private static final class PreferenceFactory implements Factory<Preference> {
+    private static final class PreferenceFactory implements Factory {
         public Preference create() {
             final Preference preference = new Preference();
             
@@ -48,7 +48,7 @@ public class PortletPrefrencesTest extends AbstractFormController {
         }
     }
     
-    private static final class StringFactory implements Factory<String> {
+    private static final class StringFactory implements Factory {
         public String create() {
             return new String();
         }

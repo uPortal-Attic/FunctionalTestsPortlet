@@ -34,23 +34,23 @@
             <role-name>Everyone</role-name>
         </security-role-ref>
         <security-role-ref>
-            <role-name>Everyone (link)</role-name>
+            <role-name>EveryoneLink</role-name>
             <role-link>local.0</role-link>
         </security-role-ref>
         
         <security-role-ref>
-            <role-name>All Users (PAGS)</role-name>
+            <role-name>AllUsersPAGS</role-name>
         </security-role-ref>
         <security-role-ref>
-            <role-name>All Users (PAGS) (link)</role-name>
+            <role-name>AllUsersPAGSlink</role-name>
             <role-link>pags.all_users</role-link>
         </security-role-ref>
         
         <security-role-ref>
-            <role-name>Portal Administrators</role-name>
+            <role-name>PortalAdministrators</role-name>
         </security-role-ref>
         <security-role-ref>
-            <role-name>Portal Administrators (link)</role-name>
+            <role-name>PortalAdministratorslink</role-name>
             <role-link>local.2</role-link>
         </security-role-ref>
         
@@ -65,13 +65,19 @@
             <role-name>UnDefinedInPortal</role-name>
         </security-role-ref>
         <security-role-ref>
-            <role-name>UnDefinedInPortal (link)</role-name>
+            <role-name>UnDefinedInPortallink</role-name>
             <role-link>local.UnDefinedInPortal</role-link>
         </security-role-ref>
     </portlet>
     
     <custom-portlet-mode>
         <portlet-mode>ABOUT</portlet-mode>
+    </custom-portlet-mode>
+    <custom-portlet-mode>
+        <portlet-mode>CONFIG</portlet-mode>
+    </custom-portlet-mode>
+    <custom-portlet-mode>
+        <portlet-mode>PREVIEW</portlet-mode>
     </custom-portlet-mode>
     
     <custom-window-state>
