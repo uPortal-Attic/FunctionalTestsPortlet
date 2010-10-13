@@ -70,6 +70,67 @@
         </security-role-ref>
     </portlet>
     
+    <portlet>
+        <portlet-name>ResourceServingPortlet</portlet-name>
+        <display-name xml:lang="en">Resource Serving Portlet</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/resourceServingPortletContext.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>application/json</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>Resource Serving Portlet</title>
+            <short-title>Resource Serving Portlet</short-title>
+            <keywords>Functional Tests</keywords>
+        </portlet-info>
+        
+        
+        <security-role-ref>
+            <role-name>Everyone</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>EveryoneLink</role-name>
+            <role-link>local.0</role-link>
+        </security-role-ref>
+        
+        <security-role-ref>
+            <role-name>AllUsersPAGS</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>AllUsersPAGSlink</role-name>
+            <role-link>pags.all_users</role-link>
+        </security-role-ref>
+        
+        <security-role-ref>
+            <role-name>PortalAdministrators</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>PortalAdministratorslink</role-name>
+            <role-link>local.2</role-link>
+        </security-role-ref>
+        
+        <security-role-ref>
+            <role-name>Developers</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>Guests</role-name>
+        </security-role-ref>
+
+        <security-role-ref>
+            <role-name>UnDefinedInPortal</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>UnDefinedInPortallink</role-name>
+            <role-link>local.UnDefinedInPortal</role-link>
+        </security-role-ref>
+    </portlet>
+    
     <custom-portlet-mode>
         <portlet-mode>ABOUT</portlet-mode>
     </custom-portlet-mode>
