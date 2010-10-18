@@ -1,6 +1,5 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 
-<%@ include file="/WEB-INF/jsp/testSelectorHeader.jsp" %>
 <c:set var="n"><portlet:namespace/></c:set>
 <portlet:resourceURL id="jsonResourceUrl" var="jsonResourceUrl" />
 <style type="text/css">

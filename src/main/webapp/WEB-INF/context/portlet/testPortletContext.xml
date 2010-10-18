@@ -8,11 +8,6 @@
 
     <context:component-scan base-package="org.jasig.portlet.test.mvc" />
     <context:annotation-config />
-    
-    <!--  
-    <bean class="org.springframework.web.portlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
-    <bean class="org.springframework.web.portlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
-    -->
         
     <bean id="testDelegatingSelectorController" class="org.jasig.portlet.test.mvc.TestDelegatingSelectorController">
         <property name="testControllers">
@@ -59,9 +54,6 @@
                 </entry>
                 <entry key="User Info Test">
                     <bean class="org.jasig.portlet.test.mvc.tests.GetExpectedUserAttributesTest" />
-                </entry>
-                <entry key="Resource URL Test">
-                	<bean class="org.jasig.portlet.test.mvc.tests.ResourceURLTest" />
                 </entry>
             </map>
         </property>

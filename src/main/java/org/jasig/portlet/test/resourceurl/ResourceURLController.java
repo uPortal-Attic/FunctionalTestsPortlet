@@ -40,6 +40,11 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 @RequestMapping("VIEW")
 public class ResourceURLController {
 
+	@RequestMapping
+	protected String displayHomeView() {
+		return "resourceUrlTest";
+	}
+	
 	@ResourceMapping("jsonResourceUrl")
 	protected View handleJsonResourceUrl(ResourceRequest request, ResourceResponse response, ModelMap model) {
 		model.addAttribute("hello", "world");
