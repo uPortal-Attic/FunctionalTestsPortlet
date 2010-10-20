@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 
 <c:set var="n"><portlet:namespace/></c:set>
-<portlet:resourceURL id="jsonResourceUrl" var="jsonResourceUrl" />
+<portlet:resourceURL id="jsonResourceUrl" var="jsonResourceUrl" escapeXml="false"></portlet:resourceURL>
 <style type="text/css">
 .testoutput {
 width: 100%;
