@@ -72,7 +72,7 @@ public class PortletPrefrencesTest extends AbstractFormController {
                 final List<String> values = preference.getValues();
                 values.remove(delValueIndex);
             }
-            else {
+            else if (0 <= delPrefIndex && delPrefIndex < preferencesList.size()) {
                 preferencesList.remove(delPrefIndex);
             }
         }
