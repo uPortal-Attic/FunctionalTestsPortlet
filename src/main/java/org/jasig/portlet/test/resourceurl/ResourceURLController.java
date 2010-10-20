@@ -46,7 +46,7 @@ public class ResourceURLController {
 	@ResourceMapping(value="jsonResourceUrl")
 	protected String handleJsonResourceUrl(ResourceRequest request, ResourceResponse response, ModelMap model) {
 		model.addAttribute("hello", "world");
-		model.addAttribute("currentTime", new Date());
+		model.addAttribute("currentTime", new Date().toString());
 		return "jsonView";
 	}
 }
