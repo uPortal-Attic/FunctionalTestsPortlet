@@ -27,8 +27,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 /**
  * Simple {@link Controller} that responds to test resource urls.
@@ -45,10 +43,10 @@ public class ResourceURLController {
 		return "resourceUrlTest";
 	}
 	
-	@ResourceMapping("jsonResourceUrl")
-	protected View handleJsonResourceUrl(ResourceRequest request, ResourceResponse response, ModelMap model) {
+	@ResourceMapping(value="jsonResourceUrl")
+	protected String handleJsonResourceUrl(ResourceRequest request, ResourceResponse response, ModelMap model) {
 		model.addAttribute("hello", "world");
 		model.addAttribute("currentTime", new Date());
-		return new MappingJacksonJsonView();
+		return "jsonView";
 	}
 }

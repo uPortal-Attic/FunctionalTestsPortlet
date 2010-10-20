@@ -19,7 +19,7 @@ border: 1px solid gray;
 </ul>
 <p>JSON data received:</p>
 <div class="testoutput">
-<pre id="${n}testresults"></pre>
+<p><span id="${n}testresults"></span></p>
 </div>
 
 <script type="text/javascript">
@@ -35,7 +35,7 @@ up.jQuery(function() {
          			success: function(data) {
            		  		if(null != data && data.hello) {
            	  				$('#${n}teststatus').text('Success');
-                     		$('#${n}testresults').val(data);	
+                     		$('#${n}testresults').text('currentTime: ' + data.currentTime);	
              			} else {
              				$('#${n}teststatus').text('Failed, no data returned, or missing "hello" element in JSON');
              			}
