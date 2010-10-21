@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.EventMapping;
@@ -42,6 +43,7 @@ import org.springframework.web.portlet.util.PortletUtils;
  * @version $Revision$
  */
 @Controller
+@RequestMapping("VIEW")
 public class EventTestController {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     
