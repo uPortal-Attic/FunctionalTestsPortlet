@@ -18,14 +18,16 @@
  */
 package org.jasig.portlet.test.resourceurl;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Map;
 
 import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
 /**
@@ -37,16 +39,41 @@ import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 @Controller
 @RequestMapping("VIEW")
 public class ResourceURLController {
-
+	
 	@RequestMapping
-	protected String displayHomeView() {
+	protected String displayBasicTestView() {
 		return "resourceUrlTest";
 	}
 	
-	@ResourceMapping(value="jsonResourceUrl")
-	protected String handleJsonResourceUrl(ResourceRequest request, ResourceResponse response, ModelMap model) {
+	@ResourceMapping(value="basicJsonResourceUrl")
+	protected String handleBasicJsonResourceUrl(ModelMap model) {
 		model.addAttribute("hello", "world");
 		model.addAttribute("currentTime", new Date().toString());
+		return "jsonView";
+	}
+	
+	@RequestMapping(params="testname=param")
+	protected String displayParameterTestView(ModelMap model, 
+			@RequestParam(value="renderParameter", required=false, defaultValue="") String renderParam) {
+		model.addAttribute("existingRenderParameterValue", renderParam);
+		return "resourceParamTest";
+	}
+	
+	@ResourceMapping(value="paramJsonResourceUrl")
+	protected String handleParamResourceUrl(ResourceRequest request, ModelMap model) {
+		// previous render params
+		Map<String, String[]> previousRenderParams = request.getPrivateRenderParameterMap();
+		// resource parameter
+		Map<String, String[]> resourceParams = request.getPrivateParameterMap();
+		
+		String [] renderParams = previousRenderParams.get("renderParameter");
+		if(renderParams == null) {
+			model.addAttribute("renderParameter", "");
+		} else {
+			model.addAttribute("renderParameter", renderParams[0]);
+		}
+		
+		model.addAttribute("resourceParameter", Arrays.toString(resourceParams.get("resourceParameter")));
 		return "jsonView";
 	}
 }
