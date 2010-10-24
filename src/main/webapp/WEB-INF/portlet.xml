@@ -159,13 +159,14 @@
             <name>SimpleTestEvent</name>
         </supported-processing-event>
         <supported-processing-event>
-            <name>PingPongTestEvent</name>
+            <name>EndlessTestEvent</name>
         </supported-processing-event>
+        
         <supported-publishing-event>
             <name>SimpleTestEvent</name>
         </supported-publishing-event>
         <supported-publishing-event>
-            <name>PingPongTestEvent</name>
+            <name>EndlessTestEvent</name>
         </supported-publishing-event>
     </portlet>
     

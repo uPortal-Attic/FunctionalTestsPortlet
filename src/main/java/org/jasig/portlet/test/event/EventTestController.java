@@ -92,8 +92,8 @@ public class EventTestController {
     
     @ActionMapping("endlessEventTest")
     public void exponentialEventTest(ActionResponse response) {
-        logger.debug("Sending EndlessTestEvent={} from action handler", 0);
-        response.setEvent("EndlessTestEvent", 0);
+        logger.debug("Sending EndlessTestEvent={} from action handler", 0l);
+        response.setEvent("EndlessTestEvent", 0l);
     }
     
     @EventMapping("EndlessTestEvent")
@@ -108,7 +108,7 @@ public class EventTestController {
             portletSession.setAttribute("EndlessTestEvent", eventCount);
         }
         
-        final long newCount = eventCount + 1;
+        final Long newCount = eventCount + 1l;
         logger.debug("Sending EndlessTestEvent=" + newCount + " from event handler");
         eventResponse.setEvent("EndlessTestEvent", newCount);
     }
