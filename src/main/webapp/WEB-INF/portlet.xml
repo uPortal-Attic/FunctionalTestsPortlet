@@ -173,11 +173,15 @@
     <portlet>
         <portlet-name>HeaderTestPortlet</portlet-name>
         <display-name xml:lang="en">Header Test Portlet</display-name>
+        <portlet-class>org.jasig.portlet.test.header.HeaderTestPortlet</portlet-class>
+        <!-- Spring 3 version of this test is disabled due to Spring 3's lack of support for doHeaders in the DispatcherPortlet -->
+        <!--  
         <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
         <init-param>
             <name>contextConfigLocation</name>
             <value>/WEB-INF/context/portlet/headerTestPortletContext.xml</value>
         </init-param>
+        -->
         <expiration-cache>0</expiration-cache>
         <supports>
             <mime-type>text/html</mime-type>

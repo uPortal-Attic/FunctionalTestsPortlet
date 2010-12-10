@@ -26,8 +26,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
+ * <strong>This controller is disabled due to Spring 3's lack of support for the doHeaders method in the DispatcherPortlet.</strong>
+ * 
  * {@link Controller} for testing portlet head output support.
- *  
+ *   
  * @author Nicholas Blair
  * @version $Id$
  */
