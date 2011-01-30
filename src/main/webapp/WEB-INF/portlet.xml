@@ -240,6 +240,27 @@
     	</container-runtime-option>
     </portlet>
     
+    <portlet>
+        <portlet-name>Cookie Test Portlet</portlet-name>
+        <display-name xml:lang="en">Cookie Test Portlet</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/cookieTestPortletContext.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>Cookie Test Portlet</title>
+            <short-title>Cookie Test</short-title>
+            <keywords>Cookie Test</keywords>
+        </portlet-info>
+    </portlet>
+    
     <custom-portlet-mode>
         <portlet-mode>ABOUT</portlet-mode>
     </custom-portlet-mode>
