@@ -28,10 +28,9 @@ public class CreateCookieFormBackingObject {
 	private String value;
 	private String comment;
 	private String domain;
-	private int maxAge;
+	private int maxAge = -1;
 	private String path;
-	private boolean secure;
-	private int version;
+	private int version = 0;
 	/**
 	 * @return the name
 	 */
@@ -104,18 +103,7 @@ public class CreateCookieFormBackingObject {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	/**
-	 * @return the secure
-	 */
-	public boolean isSecure() {
-		return secure;
-	}
-	/**
-	 * @param secure the secure to set
-	 */
-	public void setSecure(boolean secure) {
-		this.secure = secure;
-	}
+
 	/**
 	 * @return the version
 	 */

@@ -98,13 +98,16 @@ public class CookieTestController {
 	 * 
 	 * @param response
 	 */
-	@ActionMapping("randomCookieAction")
-	protected void createRandomCookie(ActionResponse response) {
+	@ActionMapping(value="randomCookieAction")
+	protected void createRandomCookie(ActionRequest request, ActionResponse response) {
 		final String name = RandomStringUtils.randomAlphabetic(8);
 		final String value = RandomStringUtils.randomAlphanumeric(8);
 		Cookie cookie = new Cookie(name, value);
 		cookie.setComment("Random Cookie Test comment");
+		cookie.setMaxAge(-1);
+		cookie.setSecure(request.isSecure());
 		response.addProperty(cookie);
+		
 	}
 	
 	/**
@@ -114,8 +117,8 @@ public class CookieTestController {
 	 * @param errors
 	 * @param response
 	 */
-	@ActionMapping("formCookieAction")
-	protected void createFormCookie(@ModelAttribute @Valid CreateCookieFormBackingObject command, BindingResult errors, ActionResponse response) {
+	@ActionMapping(value="formCookieAction")
+	protected void createFormCookie(@ModelAttribute @Valid CreateCookieFormBackingObject command, BindingResult errors, ActionRequest request, ActionResponse response) {
 		if(errors.hasErrors()) {
 			return;
 		}
@@ -128,7 +131,7 @@ public class CookieTestController {
 		cookie.setDomain(command.getDomain());
 		cookie.setMaxAge(command.getMaxAge());
 		cookie.setPath(command.getPath());
-		cookie.setSecure(command.isSecure());
+		cookie.setSecure(request.isSecure());
 		cookie.setVersion(command.getVersion());
 		
 		response.addProperty(cookie);

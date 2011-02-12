@@ -1,5 +1,11 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 <c:set var="n"><portlet:namespace/></c:set>
+<style type="text/css">
+#${n}_overflowwrap {
+overflow:scroll;
+}
+</style>
+<div id="${n}_overflowwrap">
 <div id="${n}currentCookies">
 <c:choose>
 <c:when test="${empty cookieList}">
@@ -40,21 +46,15 @@ Found ${cookieListSize} cookies:
 </div>
 <hr/>
 <div id="${n}createRandomCookie">
-<%-- name="randomCookieAction" --%>
-<portlet:actionURL var="randomCookieAction" name="randomCookieAction">
-<portlet:param name="javax.portlet.action" value="randomCookieAction"/>
-</portlet:actionURL>
-<form:form action="${randomCookieAction}">
+<portlet:actionURL var="randomCookieAction" name="randomCookieAction"/>
+<form:form action="${randomCookieAction}" htmlEscape="false">
 <input type="submit" value="Generate New Random Cookie"/>
 </form:form>
 </div>
 <hr/>
 <div id="${n}createFormCookie">
-<%-- name="formCookieAction" --%>
-<portlet:actionURL var="formCookieAction" >
-<portlet:param name="javax.portlet.action" value="formCookieAction"/>
-</portlet:actionURL>
-<form:form action="${formCookieAction}" commandName="command">
+<portlet:actionURL var="formCookieAction" />
+<form:form action="${formCookieAction}" commandName="command" htmlEscape="false">
 <table>
 <tr>
 <td colspan="2"><form:errors/></td>
@@ -78,9 +78,6 @@ Found ${cookieListSize} cookies:
 <td><label for="path">Path:</label></td><td><form:input path="path"/></td>
 </tr>
 <tr>
-<td><label for="secure">Secure:</label></td><td><form:input path="secure"/></td>
-</tr>
-<tr>
 <td><label for="version">Version:</label></td><td><form:input path="version"/></td>
 </tr>
 <tr>
@@ -88,4 +85,5 @@ Found ${cookieListSize} cookies:
 </tr>
 </table>
 </form:form>
+</div>
 </div>
