@@ -18,6 +18,8 @@
  */
 package org.jasig.portlet.test.cookie;
 
+import javax.servlet.http.Cookie;
+
 /**
  * @author Nicholas Blair
  * @version $Id$
@@ -31,6 +33,7 @@ public class CreateCookieFormBackingObject {
 	private int maxAge = -1;
 	private String path;
 	private int version = 0;
+	private boolean secure;
 	/**
 	 * @return the name
 	 */
@@ -115,6 +118,35 @@ public class CreateCookieFormBackingObject {
 	 */
 	public void setVersion(int version) {
 		this.version = version;
+	}
+	/**
+	 * @return the secure
+	 */
+	public boolean isSecure() {
+		return secure;
+	}
+	/**
+	 * @param secure the secure to set
+	 */
+	public void setSecure(boolean secure) {
+		this.secure = secure;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public Cookie toCookie() {
+		Cookie cookie = new Cookie(name, value);
+		cookie.setComment(comment);
+		if(domain != null) {
+			// Cookie#setDomain has an undocumented non-null argument requirement
+			cookie.setDomain(domain);
+		}
+		cookie.setMaxAge(maxAge);
+		cookie.setPath(path);
+		cookie.setSecure(secure);
+		cookie.setVersion(version);
+		return cookie;
 	}
 	
 }

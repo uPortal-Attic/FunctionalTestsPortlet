@@ -18,6 +18,7 @@
  */
 package org.jasig.portlet.test.cookie;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +26,6 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 import javax.servlet.http.Cookie;
 import javax.validation.Valid;
 
@@ -40,6 +40,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
@@ -51,6 +52,7 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  */
 @Controller
 @RequestMapping("VIEW")
+@SessionAttributes("command")
 public class CookieTestController {
 
 	/**
@@ -81,10 +83,12 @@ public class CookieTestController {
 	 */
 	@RenderMapping
 	protected String displayCookies(ModelMap model, RenderRequest request) {
-		List<Cookie> cookieList = Collections.emptyList();
+		List<CookieBeanWrapper> cookieList = new ArrayList<CookieBeanWrapper>();
 		Cookie [] cookies = request.getCookies();
 		if(cookies != null) {
-			cookieList = Arrays.asList(cookies);
+			for(Cookie cookie: cookies) {
+				cookieList.add(new CookieBeanWrapper(cookie));
+			}
 		}
 		model.addAttribute("cookieListSize", cookieList.size());
 		model.addAttribute("cookieList", cookieList);
@@ -123,18 +127,40 @@ public class CookieTestController {
 			return;
 		}
 		
-		Cookie cookie = new Cookie(command.getName(), command.getValue());
-		if(command.getComment() != null) {
-			// Cookie#setComment has an undocumented non-null argument restriction
-			cookie.setComment(command.getComment());
-		}
-		cookie.setDomain(command.getDomain());
-		cookie.setMaxAge(command.getMaxAge());
-		cookie.setPath(command.getPath());
-		cookie.setSecure(request.isSecure());
-		cookie.setVersion(command.getVersion());
+		Cookie cookie = command.toCookie();
 		
 		response.addProperty(cookie);
+	}
+	
+	/**
+	 * Alter an existing cookie that has the same name as the command object.
+	 * Ignores invocations where the command does not match an existing cookie (by name).
+	 * 
+	 * @param command
+	 * @param errors
+	 * @param request
+	 * @param response
+	 */
+	@ActionMapping(value="editCookieAction")
+	protected void editExistingCookie(CreateCookieFormBackingObject command, ActionRequest request, ActionResponse response) {
+		if(command == null) {
+			return;
+		}
+		
+		Cookie [] existingCookies = request.getCookies();
+		if(existingCookies != null) {
+			Cookie cookieToAlter = null;
+			for(Cookie existing: existingCookies) {
+				if(existing.getName().equals(command.getName())) {
+					cookieToAlter = existing;
+					break;
+				}
+			}
+			
+			if(cookieToAlter != null) {
+				response.addProperty(command.toCookie());
+			}
+		}
 	}
 	
 }
