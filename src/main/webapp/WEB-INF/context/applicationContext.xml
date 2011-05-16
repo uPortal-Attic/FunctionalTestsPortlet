@@ -5,14 +5,9 @@
     xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-
-    <context:component-scan base-package="org.jasig.portlet.test">
-        <context:exclude-filter type="regex" expression="org\.jasig\.portlet\.test\.mvc"/>
-        <context:exclude-filter type="regex" expression="org\.jasig\.portlet\.test\.event"/>
-        <context:exclude-filter type="regex" expression="org\.jasig\.portlet\.test\.resourceurl"/>
-    </context:component-scan>
+    <context:component-scan base-package="org.jasig.portlet.test.web" />
     <context:annotation-config />
-    
+
     <!--
      | Message source for this context, loaded from localized "messages_xx" files
      +-->
@@ -28,9 +23,13 @@
      | Standard JSP view resolver
      +-->
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="cache" value="true" />
+        <property name="order" value="10"></property>
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
+    </bean>
+        <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="order" value="0" />
+        <property name="location" value="/WEB-INF/context/views.xml" />
     </bean>
 </beans>

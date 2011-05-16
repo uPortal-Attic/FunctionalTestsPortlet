@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.jasig.portlet.test.resourceurl;
+package org.jasig.portlet.test.mvc.tests;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -28,6 +28,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
 /**
@@ -36,31 +37,36 @@ import org.springframework.web.portlet.bind.annotation.ResourceMapping;
  * @author Nicholas Blair
  * @version $Id$
  */
-@Controller
-@RequestMapping("VIEW")
-public class ResourceURLController {
-	
-	@RequestMapping
-	protected String displayBasicTestView() {
+@Controller("resourceURLTest")
+@RequestMapping(value = {"VIEW", "EDIT", "HELP", "ABOUT"}, params="currentTest=resourceURLTest")
+public class ResourceURLController extends BasePortletTest {
+
+    @Override
+    public String getTestName() {
+        return "Resource URL Test";
+    }
+
+    @RequestMapping
+	public String displayBasicTestView() {
 		return "resourceUrlTest";
 	}
 	
 	@ResourceMapping(value="basicJsonResourceUrl")
-	protected String handleBasicJsonResourceUrl(ModelMap model) {
+	public String handleBasicJsonResourceUrl(ModelMap model) {
 		model.addAttribute("hello", "world");
 		model.addAttribute("currentTime", new Date().toString());
 		return "jsonView";
 	}
 	
 	@RequestMapping(params="testname=param")
-	protected String displayParameterTestView(ModelMap model, 
+	public String displayParameterTestView(ModelMap model, 
 			@RequestParam(value="renderParameter", required=false, defaultValue="") String renderParam) {
 		model.addAttribute("existingRenderParameterValue", renderParam);
 		return "resourceParamTest";
 	}
 	
 	@ResourceMapping(value="paramJsonResourceUrl")
-	protected String handleParamResourceUrl(ResourceRequest request, ModelMap model) {
+	public String handleParamResourceUrl(ResourceRequest request, ModelMap model) {
 		// previous render params
 		Map<String, String[]> previousRenderParams = request.getPrivateRenderParameterMap();
 		// resource parameter
@@ -76,4 +82,9 @@ public class ResourceURLController {
 		model.addAttribute("resourceParameter", Arrays.toString(resourceParams.get("resourceParameter")));
 		return "jsonView";
 	}
+	
+	@ActionMapping
+    public void noopAction() {
+    }
+    
 }

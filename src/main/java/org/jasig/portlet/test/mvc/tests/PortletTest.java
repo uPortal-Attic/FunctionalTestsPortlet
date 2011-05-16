@@ -16,29 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package org.jasig.portlet.test.mvc.tests;
 
-import java.util.HashMap;
-
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-
-import org.springframework.web.portlet.ModelAndView;
-import org.springframework.web.portlet.mvc.AbstractController;
-
 /**
- * @author Nicholas Blair
- * @version $Id$
+ * @author Eric Dalquist
+ * @version $Revision$
  */
-public class ResourceURLTest extends AbstractController {
-
-	/* (non-Javadoc)
-	 * @see org.springframework.web.portlet.mvc.AbstractController#handleRenderRequestInternal(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-	 */
-	@Override
-	protected ModelAndView handleRenderRequestInternal(RenderRequest request,
-			RenderResponse response) throws Exception {
-		return new ModelAndView("resourceUrlTest", new HashMap<String, Object>());
-	}
-
+public interface PortletTest {
+    public String getTestKey();
+    
+    public String getTestName();
 }

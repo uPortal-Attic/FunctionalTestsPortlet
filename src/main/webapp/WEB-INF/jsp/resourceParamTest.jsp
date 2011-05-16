@@ -1,7 +1,9 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
+
+<%@ include file="/WEB-INF/jsp/testSelectorHeader.jsp" %>
+
 <%@ include file="/WEB-INF/jsp/resourceTestHeader.jsp" %>
 
-<c:set var="n"><portlet:namespace/></c:set>
 <portlet:resourceURL id="paramJsonResourceUrl" var="paramJsonResourceUrl" escapeXml="false">
 <portlet:param name="renderParameter" value="${existingRenderParameterValue}"/>
 <portlet:param name="resourceParameter" value="hello"/>

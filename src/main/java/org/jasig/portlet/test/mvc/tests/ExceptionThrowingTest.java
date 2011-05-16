@@ -17,8 +17,11 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
-import org.springframework.web.portlet.mvc.AbstractController;
+import org.springframework.web.portlet.bind.annotation.ActionMapping;
+import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * Provides a way to throw exceptions and base the excpetion being thrown on a request parameter,
@@ -27,24 +30,32 @@ import org.springframework.web.portlet.mvc.AbstractController;
  * @author Eric Dalquist
  * @version $Revision$
  */
-public class ExceptionThrowingTest extends AbstractController {
+@Controller("exceptionThrowingTest")
+@RequestMapping(value = {"VIEW", "EDIT", "HELP", "ABOUT"}, params="currentTest=exceptionThrowingTest")
+public class ExceptionThrowingTest extends BasePortletTest {
+
     public static final String THROW_EXECEPTION_APPLICATION_SESSION = "ThrowExeceptionApplicationSession";
     public static final String THROW_EXECEPTION_PORTLET_SESSION = "ThrowExeceptionPortletSession";
     public static final String THROW_EXCEPTION_PARAMETER = "ThrowExceptionParameter";
-    
+
+    @Override
+    public String getTestName() {
+        return "Exception Throwing Test";
+    }
+
     /* (non-Javadoc)
      * @see org.springframework.web.portlet.mvc.AbstractController#handleActionRequestInternal(javax.portlet.ActionRequest, javax.portlet.ActionResponse)
      */
-    @Override
-    protected void handleActionRequestInternal(ActionRequest request, ActionResponse response) throws Exception {
+    @ActionMapping
+    public void handleActionRequestInternal(ActionRequest request, ActionResponse response) throws Exception {
         this.doExceptionThrowing(request);
     }
 
     /* (non-Javadoc)
      * @see org.springframework.web.portlet.mvc.AbstractController#handleRenderRequestInternal(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
      */
-    @Override
-    protected ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) throws Exception {
+    @RenderMapping
+    public ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) throws Exception {
         this.doExceptionThrowing(request);
 
         return new ModelAndView("exceptionThrowingTest");

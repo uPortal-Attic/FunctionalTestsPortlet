@@ -7,3 +7,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <portlet:defineObjects/>
+
+<c:set var="n"><portlet:namespace/></c:set>

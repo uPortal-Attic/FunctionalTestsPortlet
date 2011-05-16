@@ -3,64 +3,42 @@
     xmlns="http://www.springframework.org/schema/beans" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+           
     <context:component-scan base-package="org.jasig.portlet.test.mvc" />
     <context:annotation-config />
+    
+    <bean id="testPickerInterceptor" class="org.jasig.portlet.test.web.TestPickerInterceptor"/>
+    <bean class="org.springframework.web.portlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+        <property name="interceptors" ref="testPickerInterceptor"/>
+    </bean>
+    
+    <util:map id="portletRoles">
+        <entry key="Everyone" value="" />
+        <entry key="Everyone (link)" value="local.0" />
         
-    <bean id="testDelegatingSelectorController" class="org.jasig.portlet.test.mvc.TestDelegatingSelectorController">
-        <property name="testControllers">
-            <map>
-                <entry key="Exception Throwing Test">
-                    <bean class="org.jasig.portlet.test.mvc.tests.ExceptionThrowingTest" />
-                </entry>
-                <entry key="State Mode Test">
-                    <bean class="org.jasig.portlet.test.mvc.tests.StateModeTest" />
-                </entry>
-                <entry key="Dynamic Title Test">
-                    <bean class="org.jasig.portlet.test.mvc.tests.DynamicTitleTest" />
-                </entry>
-                <entry key="UserInRole Test">
-                    <bean class="org.jasig.portlet.test.mvc.tests.IsUserInRoleTest">
-                        <property name="roles">
-                            <map>
-                                <entry key="Everyone" value="" />
-                                <entry key="Everyone (link)" value="local.0" />
-                                
-                                <entry key="All Users (PAGS)" value="" />
-                                <entry key="All Users (PAGS) (link)" value="pags.all_users" />
-                                
-                                <entry key="Portal Administrators" value="" />
-                                <entry key="Portal Administrators (link)" value="local.2" />
-                                
-                                <entry key="Portal Developers" value="" />
-                                <entry key="Guests" value="" />
-                        
-                                <entry key="UnDefinedInPortal" value="" />
-                                <entry key="UnDefinedInPortal (link)" value="local.UnDefinedInPortal" />
-                        
-                                <entry key="UnDefinedInDescriptor" value="" />
-                                <entry key="UnDefinedInDescriptor (link)" value="local.UnDefinedInDescriptor" />
-                            </map>
-                        </property>
-                    </bean>
-                </entry>
+        <entry key="All Users (PAGS)" value="" />
+        <entry key="All Users (PAGS) (link)" value="pags.all_users" />
+        
+        <entry key="Portal Administrators" value="" />
+        <entry key="Portal Administrators (link)" value="local.2" />
+        
+        <entry key="Portal Developers" value="" />
+        <entry key="Guests" value="" />
+
+        <entry key="UnDefinedInPortal" value="" />
+        <entry key="UnDefinedInPortal (link)" value="local.UnDefinedInPortal" />
+
+        <entry key="UnDefinedInDescriptor" value="" />
+        <entry key="UnDefinedInDescriptor (link)" value="local.UnDefinedInDescriptor" />
+    </util:map>
+
+<!--         
                 <entry key="Portlet Preferences Test">
                     <bean class="org.jasig.portlet.test.mvc.tests.PortletPrefrencesTest" />
                 </entry>
-                <entry key="Locale Test">
-                    <bean class="org.jasig.portlet.test.mvc.tests.LocaleTest" />
-                </entry>
-                <entry key="User Info Test">
-                    <bean class="org.jasig.portlet.test.mvc.tests.GetExpectedUserAttributesTest" />
-                </entry>
-            </map>
-        </property>
-    </bean>
-
-    <bean id="portletHandlerMapping" class="org.jasig.spring.web.portlet.handler.SingleControllerHandlerMapping">
-        <property name="order" value="10" />
-        <property name="defaultHandler" ref="testDelegatingSelectorController" />
-    </bean>
+     -->
 </beans>

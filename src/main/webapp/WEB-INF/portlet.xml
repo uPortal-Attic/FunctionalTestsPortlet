@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
-    xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    schemalocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd
-        http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
-        version="2.0">
-
+<portlet-app
+    xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+    version="2.0">
+        
     <portlet>
         <portlet-name>FunctionalTestsPortlet</portlet-name>
         <display-name xml:lang="en">Functional Tests Portlet</display-name>
@@ -67,93 +67,7 @@
             <role-name>UnDefinedInPortallink</role-name>
             <role-link>local.UnDefinedInPortal</role-link>
         </security-role-ref>
-    </portlet>
-    
-    <portlet>
-        <portlet-name>ResourceServingPortlet</portlet-name>
-        <display-name xml:lang="en">Resource Serving Portlet</display-name>
-        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
-        <init-param>
-            <name>contextConfigLocation</name>
-            <value>/WEB-INF/context/portlet/resourceServingPortletContext.xml</value>
-        </init-param>
-        <expiration-cache>0</expiration-cache>
-        <supports>
-            <mime-type>application/json</mime-type>
-            <portlet-mode>VIEW</portlet-mode>
-        </supports>
-        <supports>
-            <mime-type>text/html</mime-type>
-            <portlet-mode>VIEW</portlet-mode>
-        </supports>
-        <supported-locale>en</supported-locale>
-        <portlet-info>
-            <title>Resource Serving Portlet</title>
-            <short-title>Resource Serving Portlet</short-title>
-            <keywords>Functional Tests</keywords>
-        </portlet-info>
         
-        
-        <security-role-ref>
-            <role-name>Everyone</role-name>
-        </security-role-ref>
-        <security-role-ref>
-            <role-name>EveryoneLink</role-name>
-            <role-link>local.0</role-link>
-        </security-role-ref>
-        
-        <security-role-ref>
-            <role-name>AllUsersPAGS</role-name>
-        </security-role-ref>
-        <security-role-ref>
-            <role-name>AllUsersPAGSlink</role-name>
-            <role-link>pags.all_users</role-link>
-        </security-role-ref>
-        
-        <security-role-ref>
-            <role-name>PortalAdministrators</role-name>
-        </security-role-ref>
-        <security-role-ref>
-            <role-name>PortalAdministratorslink</role-name>
-            <role-link>local.2</role-link>
-        </security-role-ref>
-        
-        <security-role-ref>
-            <role-name>Developers</role-name>
-        </security-role-ref>
-        <security-role-ref>
-            <role-name>Guests</role-name>
-        </security-role-ref>
-
-        <security-role-ref>
-            <role-name>UnDefinedInPortal</role-name>
-        </security-role-ref>
-        <security-role-ref>
-            <role-name>UnDefinedInPortallink</role-name>
-            <role-link>local.UnDefinedInPortal</role-link>
-        </security-role-ref>
-        
-    </portlet>
-    
-    <portlet>
-        <portlet-name>Events Test Portlet</portlet-name>
-        <display-name xml:lang="en">Events Test Portlet</display-name>
-        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
-        <init-param>
-            <name>contextConfigLocation</name>
-            <value>/WEB-INF/context/portlet/eventsPortletContext.xml</value>
-        </init-param>
-        <expiration-cache>0</expiration-cache>
-        <supports>
-            <mime-type>text/html</mime-type>
-            <portlet-mode>VIEW</portlet-mode>
-        </supports>
-        <supported-locale>en</supported-locale>
-        <portlet-info>
-            <title>Events Test Portlet</title>
-            <short-title>Events Test</short-title>
-            <keywords>Events Test</keywords>
-        </portlet-info>
         
         <supported-processing-event>
             <name>SimpleTestEvent</name>
@@ -194,71 +108,10 @@
             <keywords>Functional Tests</keywords>
         </portlet-info>
         
-        
-        <security-role-ref>
-            <role-name>Everyone</role-name>
-        </security-role-ref>
-        <security-role-ref>
-            <role-name>EveryoneLink</role-name>
-            <role-link>local.0</role-link>
-        </security-role-ref>
-        
-        <security-role-ref>
-            <role-name>AllUsersPAGS</role-name>
-        </security-role-ref>
-        <security-role-ref>
-            <role-name>AllUsersPAGSlink</role-name>
-            <role-link>pags.all_users</role-link>
-        </security-role-ref>
-        
-        <security-role-ref>
-            <role-name>PortalAdministrators</role-name>
-        </security-role-ref>
-        <security-role-ref>
-            <role-name>PortalAdministratorslink</role-name>
-            <role-link>local.2</role-link>
-        </security-role-ref>
-        
-        <security-role-ref>
-            <role-name>Developers</role-name>
-        </security-role-ref>
-        <security-role-ref>
-            <role-name>Guests</role-name>
-        </security-role-ref>
-
-        <security-role-ref>
-            <role-name>UnDefinedInPortal</role-name>
-        </security-role-ref>
-        <security-role-ref>
-            <role-name>UnDefinedInPortallink</role-name>
-            <role-link>local.UnDefinedInPortal</role-link>
-        </security-role-ref>
-        
         <container-runtime-option>
         	<name>javax.portlet.renderHeaders</name>
         	<value>true</value>
     	</container-runtime-option>
-    </portlet>
-    
-    <portlet>
-        <portlet-name>Cookie Test Portlet</portlet-name>
-        <display-name xml:lang="en">Cookie Test Portlet</display-name>
-        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
-        <init-param>
-            <name>contextConfigLocation</name>
-            <value>/WEB-INF/context/portlet/cookieTestPortletContext.xml</value>
-        </init-param>
-        <expiration-cache>0</expiration-cache>
-        <supports>
-            <mime-type>text/html</mime-type>
-            <portlet-mode>VIEW</portlet-mode>
-        </supports>
-        <supported-locale>en</supported-locale>
-        <portlet-info>
-            <title>Cookie Test Portlet</title>
-            <short-title>Cookie Test</short-title>
-            <keywords>Cookie Test</keywords>
-        </portlet-info>
     </portlet>
     
     <custom-portlet-mode>
@@ -277,6 +130,21 @@
     <custom-window-state>
         <window-state>DETACHED</window-state>
     </custom-window-state>
+    
+    <filter>
+        <filter-name>testSelectingFilter</filter-name>
+        <filter-class>org.springframework.portlet.filter.DelegatingPortletFilterProxy</filter-class>
+        <lifecycle>ACTION_PHASE</lifecycle>
+        <lifecycle>EVENT_PHASE</lifecycle>
+        <lifecycle>RENDER_PHASE</lifecycle>
+        <lifecycle>RESOURCE_PHASE</lifecycle>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>testSelectingFilter</filter-name>
+        <portlet-name>FunctionalTestsPortlet</portlet-name>
+    </filter-mapping>
+    
     
     <!-- Use maven groupId + artifactId as default namespace -->
     <default-namespace>org.jasig.portlet.FunctionalTestsPortlet</default-namespace>

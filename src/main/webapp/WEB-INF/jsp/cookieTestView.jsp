@@ -1,5 +1,7 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
-<c:set var="n"><portlet:namespace/></c:set>
+
+<%@ include file="/WEB-INF/jsp/testSelectorHeader.jsp" %>
+
 <style type="text/css">
 #${n}_overflowwrap {
 overflow:scroll;

@@ -1,6 +1,7 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 
-<c:set var="n"><portlet:namespace/></c:set>
+<%@ include file="/WEB-INF/jsp/testSelectorHeader.jsp" %>
+
 <portlet:actionURL var="simpleEventTestUrl">
   <portlet:param name="javax.portlet.action" value="simpleEventTest"/>
 </portlet:actionURL>

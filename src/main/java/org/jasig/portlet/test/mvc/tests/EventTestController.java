@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.jasig.portlet.test.event;
+package org.jasig.portlet.test.mvc.tests;
 
 import java.util.Date;
 
@@ -27,8 +27,6 @@ import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
 import javax.portlet.PortletSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,12 +40,16 @@ import org.springframework.web.portlet.util.PortletUtils;
  * @author Eric Dalquist
  * @version $Revision$
  */
-@Controller
-@RequestMapping("VIEW")
-public class EventTestController {
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-    
-    @RenderMapping("NORMAL")
+@Controller("eventTest")
+@RequestMapping(value = {"VIEW", "EDIT", "HELP", "ABOUT"}, params="currentTest=eventTest")
+public class EventTestController extends BasePortletTest {
+
+    @Override
+    public String getTestName() {
+        return "Event Test";
+    }
+
+    @RenderMapping
     public String viewEventsTest(
             @RequestParam(value = "simpleEvent", required = false) String simpleEvent,
             PortletSession portletSession,
@@ -70,6 +72,10 @@ public class EventTestController {
         return "eventTest";
     }
     
+    @ActionMapping
+    public void noopAction() {
+    }
+
     @ActionMapping("simpleEventTest")
     public void simpleEventTest(ActionResponse response) {
         final Date now = new Date();
@@ -81,7 +87,7 @@ public class EventTestController {
     @EventMapping("SimpleTestEvent")
     public void simpleEventHandler(EventRequest  eventRequest, EventResponse eventResponse) {
         final Event event = eventRequest.getEvent();
-        logger.debug("Handling SimpleTestEvent: {}", event);
+        logger.info("Handling SimpleTestEvent: {}", event);
         
         final Date value = (Date)event.getValue();
         
@@ -99,7 +105,7 @@ public class EventTestController {
     @EventMapping("EndlessTestEvent")
     public void exponentialEventTest(EventRequest  eventRequest, EventResponse eventResponse) {
         final Event event = eventRequest.getEvent();
-        logger.debug("Handling EndlessTestEvent: " + event);
+        logger.info("Handling EndlessTestEvent: " + event);
         
         final Long eventCount = (Long)event.getValue();
         

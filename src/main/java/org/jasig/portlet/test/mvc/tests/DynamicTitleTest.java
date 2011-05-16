@@ -15,27 +15,34 @@ import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
-import org.springframework.web.portlet.mvc.AbstractController;
+import org.springframework.web.portlet.bind.annotation.ActionMapping;
+import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * @author Eric Dalquist
  * @version $Revision$
  */
-public class DynamicTitleTest extends AbstractController {
+@Controller("dynamicTitleTest")
+@RequestMapping(value = {"VIEW", "EDIT", "HELP", "ABOUT"}, params="currentTest=dynamicTitleTest")
+public class DynamicTitleTest  extends BasePortletTest {
+
     private static final String ACTION_TITLE = "ACTION_TITLE";
     private static final String RENDER_TITLE = "RENDER_TITLE";
     private static final String DATE_FORMAT = "yyyy-MM-dd - HH:mm:ss.SSS";
-
-    public DynamicTitleTest() {
-        this.setRenderWhenMinimized(true);
+    
+    @Override
+    public String getTestName() {
+        return "Dynamic Title Test";
     }
 
     /* (non-Javadoc)
      * @see org.springframework.web.portlet.mvc.AbstractController#handleActionRequestInternal(javax.portlet.ActionRequest, javax.portlet.ActionResponse)
      */
-    @Override
-    protected void handleActionRequestInternal(ActionRequest request, ActionResponse response) throws Exception {
+    @ActionMapping
+    public void handleActionRequestInternal(ActionRequest request, ActionResponse response) throws Exception {
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
         final String formattedDate = simpleDateFormat.format(new Date());
         response.setRenderParameter(ACTION_TITLE, "Action '" + formattedDate + "'");
@@ -44,7 +51,7 @@ public class DynamicTitleTest extends AbstractController {
     /* (non-Javadoc)
      * @see org.springframework.web.portlet.mvc.AbstractController#handleRenderRequestInternal(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
      */
-    @Override
+    @RenderMapping
     protected ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) throws Exception {
         final String actionTitle = request.getParameter(ACTION_TITLE);
         

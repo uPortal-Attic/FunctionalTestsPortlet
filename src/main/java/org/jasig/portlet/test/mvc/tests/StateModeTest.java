@@ -20,23 +20,30 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
-import org.springframework.web.portlet.mvc.AbstractController;
+import org.springframework.web.portlet.bind.annotation.ActionMapping;
+import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * @author Eric Dalquist
  * @version $Revision$
  */
-public class StateModeTest extends AbstractController {
-    public StateModeTest() {
-        this.setRenderWhenMinimized(true);
+@Controller("stateModeTest")
+@RequestMapping(value = {"VIEW", "EDIT", "HELP", "ABOUT"}, params="currentTest=stateModeTest")
+public class StateModeTest extends BasePortletTest {
+
+    @Override
+    public String getTestName() {
+        return "State/Mode Test";
     }
 
     /* (non-Javadoc)
      * @see org.springframework.web.portlet.mvc.AbstractController#handleActionRequestInternal(javax.portlet.ActionRequest, javax.portlet.ActionResponse)
      */
-    @Override
-    protected void handleActionRequestInternal(ActionRequest request, ActionResponse response) throws Exception {
+    @ActionMapping
+    public void handleActionRequestInternal(ActionRequest request, ActionResponse response) throws Exception {
         final PortletMode actionPortletMode = request.getPortletMode();
         final WindowState actionWindowState = request.getWindowState();
 
@@ -92,8 +99,8 @@ public class StateModeTest extends AbstractController {
     /* (non-Javadoc)
      * @see org.springframework.web.portlet.mvc.AbstractController#handleRenderRequestInternal(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
      */
-    @Override
-    protected ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) throws Exception {
+    @RenderMapping
+    public ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) throws Exception {
         final PortalContext portalContext = request.getPortalContext();
         
         final List<String> supportedPortletModes = this.toStringList(portalContext.getSupportedPortletModes());

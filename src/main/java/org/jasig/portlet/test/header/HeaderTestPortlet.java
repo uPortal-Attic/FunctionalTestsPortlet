@@ -58,6 +58,7 @@ public class HeaderTestPortlet extends GenericPortlet {
 		}
 		try {
 			response.getWriter().write("<style type=\"text/css\">#headerTestCustomText { color:" + color + "; }</style>");
+			logger.info("Wrote header CSS");
 		} catch (IOException e) {
 			logger.error("caught IOException", e);
 		}
@@ -88,6 +89,7 @@ public class HeaderTestPortlet extends GenericPortlet {
 		viewOutput.append("</li><li>If the header was properly rendered, the following text should be GREEN: <span id=\"headerTestCustomText\" class=\"headerTestResult\">Hello World!</span></li></ul>");
 		try {
 			response.getWriter().write(viewOutput.toString());
+			logger.info("Wrote Content");
 		} catch (IOException e) {
 			logger.error("caught IOException", e);
 		}

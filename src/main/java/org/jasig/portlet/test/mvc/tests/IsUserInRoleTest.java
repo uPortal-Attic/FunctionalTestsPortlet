@@ -8,32 +8,34 @@ package org.jasig.portlet.test.mvc.tests;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
-import org.springframework.web.portlet.mvc.AbstractController;
+import org.springframework.web.portlet.bind.annotation.ActionMapping;
+import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * @author Eric Dalquist
  * @version $Revision$
  */
-public class IsUserInRoleTest extends AbstractController {
+@Controller("userInRoleTest")
+@RequestMapping(value = {"VIEW", "EDIT", "HELP", "ABOUT"}, params="currentTest=userInRoleTest")
+public class IsUserInRoleTest extends BasePortletTest {
+
+    @Override
+    public String getTestName() {
+        return "User Roles Test";
+    }
+
     private Map<String, String> roles = null;
     
-    /**
-     * @return the roles
-     */
-    public Map<String, String> getRoles() {
-        return this.roles;
-    }
-    /**
-     * @param roles the roles to set
-     */
-    @Required
+    @Resource(name="portletRoles")
     public void setRoles(Map<String, String> roles) {
         Validate.notNull(roles);
         this.roles = roles;
@@ -43,8 +45,8 @@ public class IsUserInRoleTest extends AbstractController {
     /* (non-Javadoc)
      * @see org.springframework.web.portlet.mvc.AbstractController#handleRenderRequestInternal(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
      */
-    @Override
-    protected ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) throws Exception {
+    @RenderMapping
+    public ModelAndView handleRenderRequestInternal(RenderRequest request, RenderResponse response) throws Exception {
         final Map<String, Boolean> roleTests = new HashMap<String, Boolean>();
         final Map<String, Boolean> roleLinkTests = new HashMap<String, Boolean>();
         
@@ -66,5 +68,9 @@ public class IsUserInRoleTest extends AbstractController {
         model.put("roleLinkTests", roleLinkTests);
         
         return new ModelAndView("userInRoleTest", model);
+    }
+    
+    @ActionMapping
+    public void noopAction() {
     }
 }

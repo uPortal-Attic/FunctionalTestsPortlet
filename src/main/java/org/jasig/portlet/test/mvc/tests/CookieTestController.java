@@ -16,11 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.jasig.portlet.test.cookie;
+package org.jasig.portlet.test.mvc.tests;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -30,6 +28,8 @@ import javax.servlet.http.Cookie;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.jasig.portlet.test.cookie.CookieBeanWrapper;
+import org.jasig.portlet.test.cookie.CreateCookieFormBackingObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -50,12 +50,18 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
  * @author Nicholas Blair
  * @version $Id$
  */
-@Controller
-@RequestMapping("VIEW")
+@Controller("cookieTest")
+@RequestMapping(value = {"VIEW", "EDIT", "HELP", "ABOUT"}, params="currentTest=cookieTest")
 @SessionAttributes("command")
-public class CookieTestController {
+public class CookieTestController extends BasePortletTest {
 
-	/**
+    @Override
+    public String getTestName() {
+        return "Cookie Test";
+    }
+
+
+    /**
 	 * Sets up a {@link Validator} for the forms in this {@link Controller}.
 	 * @param binder
 	 */
@@ -97,7 +103,11 @@ public class CookieTestController {
 		return "cookieTestView";
 	}
 	
-	/**
+	@ActionMapping
+    public void noopAction() {
+    }
+
+    /**
 	 * Generates a new cookie with random name and value.
 	 * 
 	 * @param response
@@ -162,5 +172,4 @@ public class CookieTestController {
 			}
 		}
 	}
-	
 }
