@@ -5,155 +5,75 @@
  */
 package org.jasig.portlet.test.mvc.tests;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
+import javax.portlet.ReadOnlyException;
 import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+import javax.portlet.ValidatorException;
 
-import org.apache.commons.collections.Factory;
-import org.apache.commons.collections.list.LazyList;
-import org.jasig.portlet.test.om.prefs.Preference;
-import org.jasig.portlet.test.om.prefs.Preferences;
-import org.springframework.validation.BindException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
-import org.springframework.web.portlet.bind.PortletRequestUtils;
-import org.springframework.web.portlet.mvc.AbstractFormController;
+import org.springframework.web.portlet.bind.annotation.ActionMapping;
+import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 /**
  * @author Eric Dalquist
  * @version $Revision$
  */
-public class PortletPrefrencesTest extends AbstractFormController {
-    private static final PreferenceFactory PREFERENCE_FACTORY = new PreferenceFactory();
-    private static final StringFactory STRING_FACTORY = new StringFactory();
-    
-    private static final class PreferenceFactory implements Factory {
-        public Preference create() {
-            final Preference preference = new Preference();
-            
-            List<String> values = new LinkedList<String>();
-            values = LazyList.decorate(values, STRING_FACTORY);
-            preference.setValues(values);
-            
-            return preference;
-        }
+@Controller("preferencesTest")
+@RequestMapping(value = {"VIEW", "EDIT", "HELP", "ABOUT"}, params="currentTest=preferencesTest")
+public class PortletPrefrencesTest extends BasePortletTest {
+    private static final String NULL_PREFERENCES = "NULL_PREFERENCES";
+    private static final String MIXED_PREFERENCES = "MIXED_PREFERENCES";
+    private static final String NULL_PREFERENCE = "NULL_PREFERENCE";
+    private static final String EMPTY_PREFERENCE = "EMPTY_PREFERENCE";
+
+    @Override
+    public String getTestName() {
+        return "Preferences Test";
     }
     
-    private static final class StringFactory implements Factory {
-        public String create() {
-            return new String();
-        }
+    @ActionMapping
+    public void noopAction() {
+    }
+    
+    @ActionMapping(value="setEmptyAndNull")
+    public void setEmptyAndNullPrefernces(PortletRequest request) throws ReadOnlyException, ValidatorException, IOException {
+        final PortletPreferences preferences = request.getPreferences();
+        preferences.setValue(EMPTY_PREFERENCE, "");
+        preferences.setValue(NULL_PREFERENCE, null);
+        preferences.setValues(MIXED_PREFERENCES, new String[] {null, "", null, "", null});
+        preferences.setValues(NULL_PREFERENCES, null);
+        preferences.store();
     }
 
     /* (non-Javadoc)
-     * @see org.springframework.web.portlet.mvc.AbstractFormController#processFormSubmission(javax.portlet.ActionRequest, javax.portlet.ActionResponse, java.lang.Object, org.springframework.validation.BindException)
+     * @see org.springframework.web.portlet.mvc.AbstractController#handleRenderRequestInternal(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
      */
-    @SuppressWarnings("unchecked")
-    @Override
-    protected void processFormSubmission(ActionRequest request, ActionResponse response, Object command, BindException errors) throws Exception {
-        final Preferences preferences = (Preferences)command;
-        final List<Preference> preferencesList = preferences.getPreferences();
+    @RenderMapping
+    protected ModelAndView handleRenderRequestInternal(RenderRequest request) throws Exception {
+        final PortletPreferences preferences = request.getPreferences();
+
+        final Map<String, Object> model = new HashMap<String, Object>();
+
+        testPreference(preferences, model, EMPTY_PREFERENCE, "", new String[] {""});
+        testPreference(preferences, model, NULL_PREFERENCE, null, new String[] {null});
+        testPreference(preferences, model, MIXED_PREFERENCES, "", new String[] {null, "", null, "", null});
+        testPreference(preferences, model, NULL_PREFERENCES, null, null);
         
-        //Remove any preferences marked for removal
-        final int delPrefIndex = PortletRequestUtils.getIntParameter(request, "delPrefIndex", -1);
-        if (delPrefIndex >= 0) {
-            final int delValueIndex = PortletRequestUtils.getIntParameter(request, "delValueIndex", -1);
-            if (delValueIndex >= 0) {
-                final Preference preference = preferencesList.get(delPrefIndex);
-                final List<String> values = preference.getValues();
-                values.remove(delValueIndex);
-            }
-            else if (0 <= delPrefIndex && delPrefIndex < preferencesList.size()) {
-                preferencesList.remove(delPrefIndex);
-            }
-        }
-        
-        final PortletPreferences portletPreferences = request.getPreferences();
-        
-        //Clear out all preferences before adding new ones
-        for (final Enumeration<String> names = portletPreferences.getNames(); names.hasMoreElements(); ) {
-            final String name = names.nextElement();
-            portletPreferences.reset(name);
-        }
-        
-        //Add all the submitted preferences to the PortletPreferences
-        for (final Preference preference : preferencesList) {
-            final String name = preference.getName();
-            final List<String> values = preference.getValues();
-            final String[] valuesArray;
-            if (values != null) {
-                valuesArray = values.toArray(new String[values.size()]);
-            }
-            else {
-                valuesArray = null;
-            }
-            
-            portletPreferences.setValues(name, valuesArray);
-        }
-        
-        //Persist the changes
-        portletPreferences.store();
+        return new ModelAndView("preferencesTest", model);
     }
-
-    /* (non-Javadoc)
-     * @see org.springframework.web.portlet.mvc.AbstractFormController#renderFormSubmission(javax.portlet.RenderRequest, javax.portlet.RenderResponse, java.lang.Object, org.springframework.validation.BindException)
-     */
-    @Override
-    protected ModelAndView renderFormSubmission(RenderRequest request, RenderResponse response, Object command, BindException errors) throws Exception {
-        //Always do a clean re-render
-        return super.showNewForm(request, response);
-    }
-
-    /* (non-Javadoc)
-     * @see org.springframework.web.portlet.mvc.AbstractFormController#showForm(javax.portlet.RenderRequest, javax.portlet.RenderResponse, org.springframework.validation.BindException)
-     */
-    @Override
-    protected ModelAndView showForm(RenderRequest request, RenderResponse response, BindException errors) throws Exception {
-        return super.showForm(request, errors, "portletPreferencesTest");
-    }
-
-    /* (non-Javadoc)
-     * @see org.springframework.web.portlet.mvc.AbstractFormController#formBackingObject(javax.portlet.PortletRequest)
-     */
-    @SuppressWarnings("unchecked")
-    @Override
-    protected Object formBackingObject(PortletRequest request) throws Exception {
-        final boolean formSubmission = isFormSubmission(request);
-        
-        final PortletPreferences portletPreferences = request.getPreferences();
-        final Map<String, String[]> prefMap = portletPreferences.getMap();
-        
-        List<Preference> preferences = new ArrayList<Preference>(prefMap.size() + 1);
-        if (formSubmission) {
-            preferences = LazyList.decorate(preferences, PREFERENCE_FACTORY);
-        }
-
-        for (final Map.Entry<String, String[]> prefEntry : prefMap.entrySet()) {
-            final Preference preference = new Preference();
-            preference.setName(prefEntry.getKey());
-
-            final String[] values = prefEntry.getValue();
-            
-            List<String> valuesList = new ArrayList<String>(Arrays.asList(values));
-            if (formSubmission) {
-                valuesList = LazyList.decorate(valuesList, STRING_FACTORY);
-            }
-            
-            preference.setValues(valuesList);
-            preferences.add(preference);
-        }
-        
-        final Preferences prefs = new Preferences();
-        prefs.setPreferences(preferences);
-        return prefs;
+    
+    protected void testPreference(PortletPreferences preferences, Map<String, Object> model, String pref, String expectedValue, String[] expectedValues) {
+        final String value = preferences.getValue(pref, "DEFAULT");
+        final String[] values = preferences.getValues(pref, new String[] {"DEFAULT"});
+        model.put(pref + "_value", expectedValue == value || (expectedValue != null && expectedValue.equals(value)));
+        model.put(pref + "_values", Arrays.equals(expectedValues, values));
     }
 }
