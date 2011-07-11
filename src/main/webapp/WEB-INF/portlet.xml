@@ -114,6 +114,30 @@
     	</container-runtime-option>
     </portlet>
     
+    <portlet>
+        <portlet-name>Cache Control Test Portlet</portlet-name>
+        <display-name xml:lang="en">Cache Control Test Portlet (PLT.22.2 Example)</display-name>
+        <portlet-class>org.jasig.portlet.test.cachecontrol.publicscope.CacheControlTestPortlet</portlet-class>
+        <expiration-cache>300</expiration-cache>
+        <!-- 
+         TODO see org.apache.pluto.container.impl.MimeResponseImpl constructor, which may have a bug.
+         It uses javax.portlet.MimeResponse.PUBLIC_SCOPE ("portlet.public-scope" for comparison. The portlet
+         specification PLT.22.2 implies that the appropriate values are "public" or "private."
+        -->
+        <cache-scope>portlet.public-scope</cache-scope>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>Cache Control Test Portlet (PLT.22.2 Example)</title>
+            <short-title>Cache Control Test</short-title>
+            <keywords>Cache Control Test</keywords>
+        </portlet-info>
+    </portlet>
+    
+    
     <custom-portlet-mode>
         <portlet-mode>ABOUT</portlet-mode>
     </custom-portlet-mode>
