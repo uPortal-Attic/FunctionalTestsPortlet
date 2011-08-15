@@ -47,4 +47,5 @@ public abstract class BasePortletTest implements PortletTest, BeanNameAware {
     public String getTestKey() {
         return this.beanName;
     }
+
 }
