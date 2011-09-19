@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.jasig.parent</groupId>
 		<artifactId>jasig-parent</artifactId>
-		<version>22</version>
+		<version>32-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -21,13 +21,11 @@
 		<developerConnection>scm:svn:https://source.jasig.org/portlets/FunctionalTestsPortlet/trunk</developerConnection>
 		<url>https://developer.jasig.org/source/browse/jasigsvn/portlets/FunctionalTestsPortlet/trunk</url>
 	</scm>
-
-	<distributionManagement>
-		<site>
-			<id>developer.jasig</id>
-			<url>${jasig-site-dist-base}/portlets/FunctionalTestsPortlet/${project.version}</url>
-		</site>
-	</distributionManagement>
+    
+    <properties>
+        <project.build.sourceVersion>1.6</project.build.sourceVersion>
+        <project.build.targetVersion>1.6</project.build.targetVersion>
+    </properties>
 
 	<dependencies>
 		<!-- ===== Compile Time Dependencies ============================== -->
@@ -180,15 +178,33 @@
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
+    
+    <profiles>
+        <!-- 
+         | Used by the continuous integrations server to deploy the project site.
+         +-->
+        <profile>
+            <id>ci-local-site</id>
+            <distributionManagement>
+                <site>
+                    <id>ci-local-site</id>
+                    <url>${jasig-site-ci-dist-base}/${project.artifactId}/${project.version}</url>
+                </site>
+            </distributionManagement>
+        </profile>
+        <!-- 
+         | Should be activated manually by a developer that wishes to deploy a maven site for
+         | the project
+         +-->
+        <profile>
+            <id>manual-site</id>
+            <distributionManagement>
+                <site>
+                    <id>developer.jasig</id>
+                    <url>${jasig-site-dist-base}/${project.artifactId}/${project.version}</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>
