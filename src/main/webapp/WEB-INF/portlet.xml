@@ -155,6 +155,19 @@
         <window-state>DETACHED</window-state>
     </custom-window-state>
     
+    <user-attribute>
+    	<name>mail</name>
+    </user-attribute>
+    <user-attribute>
+    	<name>alternateEmailAddress</name>
+    </user-attribute>
+    <user-attribute>
+    	<name>telephoneNumber</name>
+    </user-attribute>
+    <user-attribute>
+    	<name>department</name>
+    </user-attribute>
+    
     <filter>
         <filter-name>testSelectingFilter</filter-name>
         <filter-class>org.springframework.portlet.filter.DelegatingPortletFilterProxy</filter-class>
