@@ -18,7 +18,7 @@ font-weight: bold;
 </style>
 
 <div id="${n}cacheControlState">
-<p><button id="${n}jsonValidationTrigger">Get JSON Content that sets CacheControl etag</button></p>
+<p><button id="${n}jsonValidationTrigger">Get JSON Content that sets CacheControl etag</button>&nbsp;<button id="${n}sendInvalidEtag" title="Click this button to sent a bogus ETag value; you'll still get content from the cache, but it'll be with a 200 status code">Get JSON Content but set wrong If-None-Match</button></p>
 <ul>
 <li>Resource URL: ${jsonValidationUrl}</li>
 <li>HTTP Response code: <span class="testdata" id="${n}testhttpstatus"></span></li>
@@ -46,6 +46,32 @@ up.jQuery(function() {
     $(document).ready(function(){
 			$('#${n}jsonValidationTrigger').click(function() {
     			$.ajax({
+         			url: '${jsonValidationUrl}',
+         			type: "GET",
+         			dataType: "json",
+         			complete: function(xhr) {
+         				$('#${n}testhttpstatus').text(xhr.status);
+             		},
+         			success: function (data, textStatus, xhr) {
+         				if(null != data && data.hello) {
+           		  			etag = xhr.getResponseHeader("ETag");
+           	  				$('#${n}teststatus').text('Success');
+                     		$('#${n}testresults').text('Time content was originally rendered: ' + data.timeRendered + ', etag: ' + etag);	
+             			} else {
+             				$('#${n}teststatus').text('Failed, no data returned, or missing "hello" element in JSON, http status code: ' + xhr.status);
+             			}
+             		},
+         			error: function(xhr, textStatus, errorThrown) {
+         				$('#${n}teststatus').text('Failed with AJAX error, HTTP status code: ' + xhr.status);
+         			}
+    			});
+			});
+			
+			$('#${n}sendInvalidEtag').click(function() {
+    			$.ajax({
+    				beforeSend: function(req) {
+    			        req.setRequestHeader("If-None-Match", "wrongvalue");
+    			    },
          			url: '${jsonValidationUrl}',
          			type: "GET",
          			dataType: "json",

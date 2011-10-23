@@ -93,6 +93,8 @@ public class CacheControlTestController extends BasePortletTest {
 	public void writeJsonContentWithValidationCaching(ResourceRequest request, ResourceResponse response) throws IOException {
 		if(request.getETag() != null) {
 			response.getCacheControl().setUseCachedContent(true);
+			//always must set expirationtime with setUseCachedContent(true); use different value for testing
+			response.getCacheControl().setExpirationTime(60);
 			return;
 		}
 		
