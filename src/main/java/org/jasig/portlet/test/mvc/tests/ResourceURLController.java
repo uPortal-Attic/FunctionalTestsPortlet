@@ -18,11 +18,16 @@
  */
 package org.jasig.portlet.test.mvc.tests;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
+import javax.portlet.PortletContext;
+import javax.portlet.PortletException;
+import javax.portlet.PortletRequestDispatcher;
 import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
+import org.springframework.web.portlet.context.PortletContextAware;
 
 /**
  * Simple {@link Controller} that responds to test resource urls.
@@ -39,7 +45,13 @@ import org.springframework.web.portlet.bind.annotation.ResourceMapping;
  */
 @Controller("resourceURLTest")
 @RequestMapping(value = {"VIEW", "EDIT", "HELP", "ABOUT"}, params="currentTest=resourceURLTest")
-public class ResourceURLController extends BasePortletTest {
+public class ResourceURLController extends BasePortletTest implements PortletContextAware {
+    private PortletContext portletContext;
+    
+    @Override
+    public void setPortletContext(PortletContext portletContext) {
+        this.portletContext = portletContext;
+    }
 
     @Override
     public String getTestName() {
@@ -82,6 +94,30 @@ public class ResourceURLController extends BasePortletTest {
 		model.addAttribute("resourceParameter", Arrays.toString(resourceParams.get("resourceParameter")));
 		return "jsonView";
 	}
+    
+    @ResourceMapping(value = "resourceInclude")
+    public void handleResourceInclude(ResourceRequest request, ResourceResponse response) throws Exception {
+        final String dynamicForm = "/WEB-INF/jsp/resourceInclude.jsp";
+        
+        if (portletContext.getResourceAsStream(dynamicForm) != null) {
+
+            try {
+                // dispatch view request to dynamicForm.jsp
+                PortletRequestDispatcher dispatcher = portletContext.getRequestDispatcher(dynamicForm);
+                dispatcher.include(request, response);
+
+            }
+            catch (IOException e) {
+                logger.info("GatewayController serveResource exception.");
+                throw new PortletException("GatewayController.serveResource exception", e);
+            }
+
+        }
+        else {
+            logger.info("GatewayController_dynamicForm.jsp missing.");
+            throw new PortletException("GatewayController_dynamicForm.jsp missing.");
+        }
+    }
 	
 	@ActionMapping
     public void noopAction() {

@@ -4,7 +4,8 @@
 
 <%@ include file="/WEB-INF/jsp/resourceTestHeader.jsp" %>
 
-<portlet:resourceURL id="basicJsonResourceUrl" var="basicJsonResourceUrl" escapeXml="false"></portlet:resourceURL>
+<portlet:resourceURL id="basicJsonResourceUrl" var="basicJsonResourceUrl" escapeXml="false" />
+<portlet:resourceURL id="resourceInclude" var="resourceIncludeUrl" escapeXml="false" />
 <style type="text/css">
 .testoutput {
 width: 100%;
@@ -16,6 +17,7 @@ border: 1px solid gray;
 
 <p>This basic test will retrieve static JSON data via a Portlet 2.0 Resource URL and populate the text area below.</p>
 <p><button id="${n}testtrigger">Run Test</button></p>
+<p><button id="${n}testIncludeTrigger">Run JSP Include Test</button></p>
 <ul>
 <li>Resource URL: ${basicJsonResourceUrl}</li>
 <li>Test Result: <span id="${n}teststatus"></span></li>
@@ -48,6 +50,25 @@ up.jQuery(function() {
          			}
     			});
 			});
+        
+            $('#${n}testIncludeTrigger').click(function() {
+                $.ajax({
+                    url: '${resourceIncludeUrl}',
+                    type: "GET",
+                    dataType: "text",
+                    success: function(data) {
+                        if(null != data) {
+                            $('#${n}teststatus').text('Success');
+                            $('#${n}testresults').text('JSP Output: ' + data.currentTime); 
+                        } else {
+                            $('#${n}teststatus').text('Failed, no data returned');
+                        }
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        $('#${n}teststatus').text('Failed with AJAX error, HTTP status code: ' + xhr.status);
+                    }
+                });
+            });
 		
     });
 });
