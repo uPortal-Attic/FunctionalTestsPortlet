@@ -36,6 +36,10 @@
         <entry key="UnDefinedInDescriptor (link)" value="local.UnDefinedInDescriptor" />
     </util:map>
 
+    <bean id="portletMultipartResolver" class="org.springframework.web.portlet.multipart.CommonsPortletMultipartResolver">
+        <!-- one of the properties available; the maximum file size in bytes -->
+        <property name="maxUploadSize" value="100000"/>
+    </bean>
 <!--         
                 <entry key="Portlet Preferences Test">
                     <bean class="org.jasig.portlet.test.mvc.tests.PortletPrefrencesTest" />
