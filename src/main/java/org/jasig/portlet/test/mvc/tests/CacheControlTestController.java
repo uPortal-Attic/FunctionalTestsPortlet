@@ -24,6 +24,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.portlet.CacheControl;
+import javax.portlet.PortletContext;
+import javax.portlet.PortletException;
+import javax.portlet.PortletRequestDispatcher;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -33,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
+import org.springframework.web.portlet.context.PortletContextAware;
 
 /**
  * Simple form based {@link BasePortletTest} for testing {@link CacheControl} support.
@@ -42,21 +46,20 @@ import org.springframework.web.portlet.bind.annotation.ResourceMapping;
  */
 @Controller("cacheControlTest")
 @RequestMapping(value = {"VIEW", "EDIT", "HELP", "ABOUT"}, params="currentTest=cacheControlTest")
-public class CacheControlTestController extends BasePortletTest {
+public class CacheControlTestController extends BasePortletTest implements PortletContextAware {
+    private PortletContext portletContext;
 
-	/* (non-Javadoc)
-	 * @see org.jasig.portlet.test.mvc.tests.PortletTest#getTestName()
-	 */
 	@Override
 	public String getTestName() {
 		return "Cache Control Test";
 	}
+	
+	@Override
+    public void setPortletContext(PortletContext portletContext) {
+	    this.portletContext = portletContext;
+    }
 
-	/**
-	 * 
-	 * @return
-	 */
-	@RenderMapping
+    @RenderMapping
 	public String showExpirationTestForm() {
 		return "cacheControlExpirationTest";
 	}
@@ -65,6 +68,11 @@ public class CacheControlTestController extends BasePortletTest {
 	public String showValidationTestForm() {
 		return "cacheControlValidationTest";
 	}
+    
+    @RenderMapping(params="testname=servletForward")
+    public String showServletForwardTestForm() {
+        return "cacheServletForwardTest";
+    }
 	
 	/**
 	 * Writes some simple JSON output. Sets cache expiration time of 120 seconds.
@@ -109,6 +117,16 @@ public class CacheControlTestController extends BasePortletTest {
 		writer.write("{ \"hello\": \"true\", \"timeRendered\": \"" + sdf.format(now) + "\" }");
 		writer.close();
 	}
+    
+    @ResourceMapping(value="servletForwardingTest")
+    public void writeServletForwardingTest(ResourceRequest request, ResourceResponse response) throws IOException, PortletException {
+        response.getCacheControl().setETag(RandomStringUtils.randomAlphanumeric(16));
+        // have to set an expiration time when using etag per portlet spec (empty expiration time is treated as "expired")
+        response.getCacheControl().setExpirationTime(30);
+        
+        final PortletRequestDispatcher servletDispatcher = portletContext.getRequestDispatcher("/SimpleServlet");
+        servletDispatcher.forward(request, response);
+    }
 	
 	/**
 	 * Empty action; actions (and events) trigger the portlet renderer to clear the output cache

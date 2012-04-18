@@ -56,6 +56,13 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     
+    
+    <servlet>
+        <servlet-name>SimpleServlet</servlet-name>
+        <servlet-class>org.jasig.portlet.test.servlet.SimpleServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
     <!-- 
      | This servlet is needed by the spring DispatcherPortlet for rendering.
      +-->
@@ -67,6 +74,11 @@
     
     <!-- [INSERT JSPC FRAGMENT HERE] -->
 
+    <servlet-mapping>
+        <servlet-name>SimpleServlet</servlet-name>
+        <url-pattern>/SimpleServlet</url-pattern>
+    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>ViewRendererServlet</servlet-name>
         <url-pattern>/WEB-INF/servlet/view</url-pattern>
