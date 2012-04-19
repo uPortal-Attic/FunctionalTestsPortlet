@@ -19,6 +19,7 @@
 package org.jasig.portlet.test.mvc.tests;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
@@ -117,6 +118,27 @@ public class ResourceURLController extends BasePortletTest implements PortletCon
             logger.info("GatewayController_dynamicForm.jsp missing.");
             throw new PortletException("GatewayController_dynamicForm.jsp missing.");
         }
+    }
+    
+    @ResourceMapping(value="resourceForwardServlet")
+    public void handleResourceForwardServlet(ResourceRequest request, ResourceResponse response) throws IOException, PortletException {
+        final PortletRequestDispatcher servletDispatcher = portletContext.getRequestDispatcher("/SimpleServlet");
+        servletDispatcher.forward(request, response);
+    }
+    
+    @ResourceMapping(value="resourceSetHeadersStatus")
+    public void handleResourceSetHeadersStatus(ResourceRequest request, ResourceResponse response) throws IOException, PortletException {
+        response.setProperty(ResourceResponse.HTTP_STATUS_CODE, "201");
+        
+        response.setContentType("text/plain");
+        
+        response.setProperty("SimpleHeader", "SimpleValue");
+        response.setProperty("SimpleIntHeader", "1234");
+        response.setProperty("SimpleDateHeader", "System.currentTimeMillis()");
+        
+        final PrintWriter writer = response.getWriter();
+        writer.println("Simple Servlet Content: ");
+        writer.println(new Date()); 
     }
 	
 	@ActionMapping

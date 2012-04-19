@@ -26,6 +26,8 @@
 
 <portlet:resourceURL id="basicJsonResourceUrl" var="basicJsonResourceUrl" escapeXml="false" />
 <portlet:resourceURL id="resourceInclude" var="resourceIncludeUrl" escapeXml="false" />
+<portlet:resourceURL id="resourceForwardServlet" var="resourceForwardServletUrl" escapeXml="false" />
+<portlet:resourceURL id="resourceSetHeadersStatus" var="resourceSetHeadersStatusUrl" escapeXml="false" />
 <style type="text/css">
 .testoutput {
 width: 100%;
@@ -35,15 +37,18 @@ border: 1px solid gray;
 }
 </style>
 
-<p>This basic test will retrieve static JSON data via a Portlet 2.0 Resource URL and populate the text area below.</p>
+<p>This basic test will retrieve static data via a Portlet 2.0 Resource URL and populate the text area below.</p>
 <p><button id="${n}testtrigger">Run Test</button></p>
 <p><button id="${n}testIncludeTrigger">Run JSP Include Test</button></p>
+<p><button id="${n}testServletForwardTrigger">Run Servlet Forward Test</button></p>
+<p><button id="${n}testSetHeadersTest">Run Set Headers Test</button></p>
 <ul>
-<li>Resource URL: ${basicJsonResourceUrl}</li>
+<li>Resource URL: <span id="${n}testurl"></span></li>
 <li>Test Result: <span id="${n}teststatus"></span></li>
 </ul>
-<p>JSON data received:</p>
+<p>Data received:</p>
 <div class="testoutput">
+<p><span id="${n}testheaders"></span></p>
 <p><span id="${n}testresults"></span></p>
 </div>
 
@@ -51,44 +56,44 @@ border: 1px solid gray;
 up.jQuery(function() {
     var $ = up.jQuery;
     $(document).ready(function(){
-		
-			$('#${n}testtrigger').click(function() {
-    			$.ajax({
-         			url: '${basicJsonResourceUrl}',
-         			type: "GET",
-         			dataType: "json",
-         			success: function(data) {
-           		  		if(null != data && data.hello) {
-           	  				$('#${n}teststatus').text('Success');
-                     		$('#${n}testresults').text('currentTime: ' + data.currentTime);	
-             			} else {
-             				$('#${n}teststatus').text('Failed, no data returned, or missing "hello" element in JSON');
-             			}
-         			},
-         			error: function(xhr, textStatus, errorThrown) {
-         				$('#${n}teststatus').text('Failed with AJAX error, HTTP status code: ' + xhr.status);
-         			}
-    			});
-			});
-        
-            $('#${n}testIncludeTrigger').click(function() {
-                $.ajax({
-                    url: '${resourceIncludeUrl}',
-                    type: "GET",
-                    dataType: "text",
-                    success: function(data) {
-                        if(null != data) {
-                            $('#${n}teststatus').text('Success');
-                            $('#${n}testresults').text('JSP Output: ' + data.currentTime); 
-                        } else {
-                            $('#${n}teststatus').text('Failed, no data returned');
-                        }
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        $('#${n}teststatus').text('Failed with AJAX error, HTTP status code: ' + xhr.status);
+        doTestCall = function(url) {
+            $('#${n}testurl').text(url);
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "text",
+                success: function(data, textStatus, xhr) {
+                    $('#${n}teststatus').text(xhr.status + ' ' + xhr.statusText);
+                    $('#${n}testheaders').text(xhr.getAllResponseHeaders());
+                    
+                    if(null != data) {
+                        $('#${n}testresults').text(data); 
+                    } else {
+                        $('#${n}teststatus').text('NO DATA RETURNED');
                     }
-                });
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    $('#${n}teststatus').text('Failed with AJAX error: ' + errorThrown);
+                }
             });
+        };
+        
+		
+		$('#${n}testtrigger').click(function() {
+		    doTestCall('${basicJsonResourceUrl}');
+		});
+      
+        $('#${n}testIncludeTrigger').click(function() {
+            doTestCall('${resourceIncludeUrl}');
+        });
+    
+        $('#${n}testServletForwardTrigger').click(function() {
+            doTestCall('${resourceForwardServletUrl}');
+        });
+    
+        $('#${n}testSetHeadersTest').click(function() {
+            doTestCall('${resourceSetHeadersStatusUrl}');
+        });
 		
     });
 });
