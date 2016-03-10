@@ -17,9 +17,9 @@
 	<url>${jasig-site-base}/portlets/FunctionalTestsPortlet/${project.version}</url>
 
 	<scm>
-		<connection>scm:svn:https://source.jasig.org/portlets/FunctionalTestsPortlet/trunk</connection>
-		<developerConnection>scm:svn:https://source.jasig.org/portlets/FunctionalTestsPortlet/trunk</developerConnection>
-		<url>https://developer.jasig.org/source/browse/jasigsvn/portlets/FunctionalTestsPortlet/trunk</url>
+		<connection>scm:git:git://github.com/Jasig/FunctionalTestsPortlet.git</connection>
+		<developerConnection>scm:git:git@github.com:Jasig/FunctionalTestsPortlet.git</developerConnection>
+		<url>https://github.com/Jasig/FunctionalTestsPortlet</url>
 	</scm>
     
     <properties>
