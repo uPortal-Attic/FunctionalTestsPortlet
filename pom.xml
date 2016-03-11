@@ -10,7 +10,7 @@
 	<groupId>org.jasig.portlet</groupId>
 	<artifactId>FunctionalTestsPortlet</artifactId>
 	<packaging>war</packaging>
-	<version>1.1.4-SNAPSHOT</version>
+	<version>1.1.4</version>
 
 	<name>Test Portlets</name>
 	<description>Portlets used for testing JSR-168 functionality.</description>
@@ -20,7 +20,8 @@
 		<connection>scm:git:git://github.com/Jasig/FunctionalTestsPortlet.git</connection>
 		<developerConnection>scm:git:git@github.com:Jasig/FunctionalTestsPortlet.git</developerConnection>
 		<url>https://github.com/Jasig/FunctionalTestsPortlet</url>
-	</scm>
+	  <tag>FunctionalTestsPortlet-1.1.4</tag>
+  </scm>
     
     <properties>
         <project.build.sourceVersion>1.6</project.build.sourceVersion>
