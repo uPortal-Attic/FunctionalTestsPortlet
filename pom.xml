@@ -58,7 +58,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>10.0.1</version>
+            <version>30.1-jre</version>
         </dependency>
 
 		<!-- the slf4j commons-logging replacement -->
